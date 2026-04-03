@@ -19,7 +19,7 @@ pipeline {
                 bat '''
                 docker stop %CONTAINER_NAME% || exit 0
                 docker rm %CONTAINER_NAME% || exit 0
-                docker run -d -p 8000:8000 --name %CONTAINER_NAME% %IMAGE_NAME%
+                docker run -d -p 8000:8000 --name %IMAGE_NAME%
                 '''
             }
         }
