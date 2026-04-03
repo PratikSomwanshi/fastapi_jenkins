@@ -10,13 +10,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                bat 'docker build -t $IMAGE_NAME .'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh '''
+                bat '''
                 docker stop $CONTAINER_NAME || true
                 docker rm $CONTAINER_NAME || true
 
