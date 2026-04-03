@@ -7,4 +7,4 @@ app = FastAPI()
 
 @app.get("/")
 async def greet():
-    return "Hello World testing  1"
+    return "Hello World testing  latest"
