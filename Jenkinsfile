@@ -1,28 +1,28 @@
-pipeline{
-
+pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "fastapi-app"
-        CONTAINER_NAME = "fastapi-container"
+        IMAGE_NAME = "fastapi-app-auto-jenkins"
     }
 
-    stages{
-        stage("Build"){
-            steps{
-                sh 'echo "Hello World from Build $IMAGE_NAME"'
+    stages {
+
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t $IMAGE_NAME .'
             }
         }
 
-        stage("Test"){
-            steps{
-                sh 'echo "Hello World from Test"'
-            }
-        }
+        stage('Deploy') {
+            steps {
+                sh '''
+                docker stop $CONTAINER_NAME || true
+                docker rm $CONTAINER_NAME || true
 
-        stage("Deploy"){
-            steps{
-                sh 'echo "Hello World from Deploy"'
+                docker run -d -p 8000:8000 \
+                  --name $IMAGE_NAME
+                '''
             }
         }
     }
